@@ -15,7 +15,7 @@ for i in range(M):
                 continue
             ans.append(int(num))
             num = ''
-        if j == len(word) - 1 and not word[j] in alphabet and len(num) != 0:
+        if j == len(word) - 1 and len(num) != 0:
             ans.append(int(num))
             num = ''
 for n in sorted(ans):
