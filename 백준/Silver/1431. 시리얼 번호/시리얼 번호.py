@@ -1,11 +1,10 @@
 import sys
 input = sys.stdin.readline
 
-num = '0123456789'
 def same(x):
     val = 0
     for i in x:
-        if i in num:
+        if i.isdigit():
             val += int(i)
     return val
 
