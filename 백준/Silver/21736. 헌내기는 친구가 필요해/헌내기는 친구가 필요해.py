@@ -1,25 +1,28 @@
 import sys
-sys.setrecursionlimit(10**8)
+from collections import deque
 input = sys.stdin.readline
 
 def possible(x, y):
     return 0 <= x < N and 0 <= y < M
 
-# 사람 찾는 DFS 함수
-def DFS(x, y):
+# 사람 찾는 BFS 함수
+def BFS(x, y):
     global cnt
+    q = deque()
+    q.append((x, y))
     visited[x][y] = 1
-    for dx, dy in dxy:
-        nx = x + dx
-        ny = y + dy
-        if possible(nx, ny) and not visited[nx][ny]:
-            if campus[nx][ny] == 'O':
-                DFS(nx, ny)
-            elif campus[nx][ny] == 'P':
-                cnt += 1
-                DFS(nx, ny)
-            elif campus[nx][ny] == 'X':
-                continue
+    while q:
+        x, y = q.popleft()
+        for dx, dy in dxy:
+            nx = x + dx
+            ny = y + dy
+            if possible(nx, ny) and not visited[nx][ny]:
+                if campus[nx][ny] == 'X':
+                    continue
+                elif campus[nx][ny] == 'P':
+                    cnt += 1
+                q.append((nx, ny))
+                visited[nx][ny] = 1
 
 dxy = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
@@ -34,7 +37,6 @@ for i in range(N):
 
 visited = [[0] * M for _ in range(N)]
 cnt = 0
-DFS(doy_x, doy_y)
-if cnt == 0:
-    cnt = 'TT'
-print(cnt)
+BFS(doy_x, doy_y)
+
+print(cnt if cnt else 'TT')
