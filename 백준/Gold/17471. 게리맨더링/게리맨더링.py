@@ -19,7 +19,7 @@ for i in range(1, N + 1):
 visited = [False] * (N + 1)
 arr = list(range(1, N + 1))
 ans = float('inf')
-for i in range(N - 1, N // 2 - 1, -1):
+for i in range(1, N // 2 + 1):
     for j in itertools.combinations(arr, i):
         cnt = 0
         select = [j[0]]
