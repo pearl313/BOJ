@@ -8,8 +8,7 @@ def possible(x, y):
 def DFS(x, y, cnt):
     global ans
     visited[x][y] = True
-    for k in range(4):
-        dx, dy = dxy[k]
+    for dx, dy in dxy:
         nx = x + dx
         ny = y + dy
         if possible(nx, ny) and not visited[nx][ny] and board[x][y] == board[nx][ny]:
@@ -32,4 +31,5 @@ for i in range(N):
             cnt = 1
             DFS(i, j, cnt)
             visited[i][j] = True
+
 print('No')
