@@ -13,21 +13,19 @@ def BFS(v):
                 continue
             q.append(i)
             visited[i] = visited[cur] + 1
-    ans = []
+    nothing = True
     for j in range(N + 1):
         if visited[j] == K:
-            ans.append(j)
-    if ans:
-        for a in ans:
-            print(a)
-    else:
+            print(j)
+            nothing = False
+    if nothing:
         print(-1)
+    return
 
 N, M, K, X = map(int, input().split())
 graph = [[] for _ in range(N + 1)]
-for i in range(M):
+visited = [-1] * (N + 1)
+for _ in range(M):
     a, b = map(int, input().split())
     graph[a].append(b)
-
-visited = [-1] * (N + 1)
 BFS(X)
