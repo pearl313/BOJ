@@ -2,15 +2,23 @@ import sys
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
-arr = list(map(int, input().split()))
+ls = list(map(int, input().split()))
+
+s = 0
+e = 0
 cnt = 0
-total = 0
-for i in range(N):
-    j = i
-    while total < M and j != N:
-        total += arr[j]
-        j += 1
+while e < N:
+    total = sum(ls[s:e + 1])
     if total == M:
         cnt += 1
-    total = 0
+        s += 1
+        e += 1
+    elif total < M:
+        e += 1
+        if e == N:
+            break
+        total += ls[e]
+    elif total > M:
+        total -= ls[s]
+        s += 1
 print(cnt)
