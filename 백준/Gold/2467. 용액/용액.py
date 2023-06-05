@@ -1,21 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-arr = sorted(map(int, input().split()))
-l = 0
-r = n - 1
-minV = float('inf')
-
-while l < r:
-    temp = arr[l] + arr[r]
-    if abs(minV) > abs(temp):
-        minV = temp
-        ans = [arr[l], arr[r]]
-    if temp < 0:
-        l += 1
-    elif temp > 0:
-        r -= 1
-    else:
+N = int(input())
+ls = list(map(int, input().split()))
+s = 0
+e = N - 1
+ans = 1e10
+while s < e:
+    temp = ls[e] + ls[s]
+    if ans > abs(temp):
+        ans_1, ans_2 = ls[s], ls[e]
+        ans = abs(temp)
+    elif temp == 0:
+        ans_1, ans_2 = ls[s], ls[e]
         break
-print(*ans)
+    elif temp > 0:
+        e -= 1
+    else:
+        s += 1
+print(ans_1, ans_2)
