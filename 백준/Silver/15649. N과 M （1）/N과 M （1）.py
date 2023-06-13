@@ -1,19 +1,19 @@
 import sys
 input = sys.stdin.readline
 
-def nPm(k):
+def recur(cur):
     if len(selected) == M:
         print(*selected)
-        return 
+        return
     for i in range(1, N + 1):
         if not visited[i]:
             selected.append(i)
             visited[i] = True
-            nPm(i)
+            recur(i + 1)
             selected.pop()
             visited[i] = False
 
 N, M = map(int, input().split())
 selected = []
 visited = [False] * (N + 1)
-nPm(0)
+recur(0)
