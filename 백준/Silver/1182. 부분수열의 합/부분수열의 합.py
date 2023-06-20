@@ -1,21 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def recur(cur, start):
+def recur(cur, cnt):
     global ans
-    if cur == cnt:
-        if sum(selected) == S:
+    if cur == N:
+        if sum(selected) == S and len(selected) != 0:
             ans += 1
-        return
-    for i in range(start, N):
-        selected[cur] = ls[i]
-        recur(cur + 1, i + 1)
+            return
+    else:
+        selected.append(ls[cur])
+        recur(cur + 1, cnt + 1)
+        selected.pop()
+        recur(cur + 1, cnt)
 
 N, S = map(int, input().split())
 ls = list(map(int, input().split()))
+selected = []
 ans = 0
-for i in range(1, N + 1):
-    selected = [0] * i
-    cnt = i
-    recur(0, 0)
+recur(0, 0)
 print(ans)
