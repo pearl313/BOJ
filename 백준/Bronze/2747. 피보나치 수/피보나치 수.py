@@ -6,7 +6,7 @@ def recur(cur):
         return cur
     if dp[cur] != -1:
         return dp[cur]
-    dp[cur] = recur(cur - 1) + recur(cur - 2)
+    dp[cur] = recur(cur - 2) + recur(cur - 1)
     return dp[cur]
 
 n = int(input())
