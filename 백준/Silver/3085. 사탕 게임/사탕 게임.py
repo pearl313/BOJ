@@ -3,35 +3,33 @@ input = sys.stdin.readline
 
 def find_row():
     global ans
-    for i in range(N):
-        count_row = 1
-        for j in range(N - 1):
+    for i in range(n):
+        row_cnt = 1
+        for j in range(n - 1):
             if board[i][j] == board[i][j + 1]:
-                count_row += 1
-                ans = max(ans, count_row)
+                row_cnt += 1
+                ans = max(ans, row_cnt)
             else:
-                count_row = 1
+                row_cnt = 1
 
 def find_column():
     global ans
-    for i in range(N):
-        count_column = 1
-        for j in range(N - 1):
+    for i in range(n):
+        col_cnt = 1
+        for j in range(n - 1):
             if board[j][i] == board[j + 1][i]:
-                count_column += 1
-                ans = max(ans, count_column)
+                col_cnt += 1
+                ans = max(ans, col_cnt)
             else:
-                count_column = 1
+                col_cnt = 1
 
-N = int(input())
-board = [list(input().strip()) for _ in range(N)]
+n = int(input())
+board = [list(input().strip()) for _ in range(n)]
 ans = 0
-# 사탕 개수 찾기
 find_row()
 find_column()
-# 색이 다른 인접한 두 칸 자리 바꿔주기
-for i in range(N):
-    for j in range(N - 1):
+for i in range(n):
+    for j in range(n - 1):
         if board[i][j] != board[i][j + 1]:
             board[i][j], board[i][j + 1] = board[i][j + 1], board[i][j]
             find_row()
