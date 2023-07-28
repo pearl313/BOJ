@@ -4,16 +4,16 @@ input = sys.stdin.readline
 def recur(cur):
     global ans
     if cur == n:
-        route = selected[:] + [selected[0]]
-        total = 0
+        travel = selected[:] + [selected[0]]
+        temp = 0
         go = True
-        for i in range(n):
-            if cost[route[i]][route[i + 1]] == 0:
+        for c in range(n):
+            if cost[travel[c]][travel[c + 1]] == 0:
                 go = False
                 break
-            total += cost[route[i]][route[i + 1]]
+            temp += cost[travel[c]][travel[c + 1]]
         if go:
-            ans = min(ans, total)
+            ans = min(ans, temp)
         return
     for i in range(1, n + 1):
         if visited[i]:
