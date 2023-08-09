@@ -18,5 +18,4 @@ t = int(input())
 for _ in range(t):
     n = int(input())
     dp = [-1] * (n + 1)
-    recur(0)
-    print(dp[0])
+    print(recur(0))
