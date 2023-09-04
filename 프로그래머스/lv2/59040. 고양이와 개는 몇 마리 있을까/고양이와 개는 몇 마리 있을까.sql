@@ -1,5 +1,6 @@
 -- 코드를 입력하세요
-SELECT animal_type, count(animal_type)
-from animal_ins
-group by animal_type
-order by animal_type
+SELECT
+    ANIMAL_TYPE, COUNT(*)
+FROM ANIMAL_INS
+GROUP BY ANIMAL_TYPE
+ORDER BY ANIMAL_TYPE 
