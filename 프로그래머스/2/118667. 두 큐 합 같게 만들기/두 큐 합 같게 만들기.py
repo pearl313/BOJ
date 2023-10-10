@@ -2,6 +2,8 @@ from collections import deque
 
 def solution(queue1, queue2):
     answer = -2
+    
+    # 시간초과 발생해서 deque 사용
     queue1 = deque(queue1)
     queue2 = deque(queue2)
     
@@ -24,25 +26,32 @@ def solution(queue1, queue2):
         else:
             possible = True
             cnt = 0
-            change_1 = queue1
-            change_2 = queue2
-            total_change_1 = sum(change_1)
-            total_change_2 = sum(change_2)
-            while total_change_1 != total_change_2:
-                if total_change_1 > total_change_2:
-                    total_change_1 -= change_1[0]
-                    change_2.append(change_1.popleft())
-                    total_change_2 += change_2[-1]
-                elif total_change_2 > total_change_1:
-                    total_change_2 -= change_2[0]
-                    change_1.append(change_2.popleft())
-                    total_change_1 += change_1[-1]
+            total_1 = sum(queue1)
+            total_2 = sum(queue2)
+            
+            # 두 큐의 합이 같아질 때까지 반복
+            while total_1 != total_2:
+                
+                if total_1 > total_2:
+                    # 시간초과 때문에 각 큐의 합에서 빼주고 더해줌
+                    total_1 -= queue1[0]
+                    queue2.append(queue1.popleft())
+                    total_2 += queue2[-1]
+                    
+                elif total_2 > total_1:
+                    total_2 -= queue2[0]
+                    queue1.append(queue2.popleft())
+                    total_1 += queue1[-1]
+                
+                # 이 과정이 실행될 때마다 카운트
                 cnt += 1
+                
+                # 두 큐에서 모두 원소가 바뀌어본 경우에도 안되면,
                 if cnt > (len(queue1) + len(queue2)) * 2:
                     possible = False
                     answer = -1
                     break
-            print(cnt)
+
             if possible:
                 answer = cnt
     
