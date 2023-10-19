@@ -1,22 +1,25 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
 
-    public static int cal(String str) {
-        int total = 1;
-        for (int i=0; i < str.length(); i++) {
-            total *= Integer.parseInt(String.valueOf(str.charAt(i)));
-        }
-        return total;
-    }
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String word = br.readLine();
+        for (int i=1; i < word.length(); i++) {
+            String first = word.substring(0, i);
+            String second = word.substring(i);
+            
+            int total1 = 1;
+            for (int j=0; j < first.length(); j++) {
+                total1 *= Integer.parseInt(String.valueOf(first.charAt(j)));
+            }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-	    String num = scanner.next();
-        for (int i=1; i < num.length(); i++) {
-            String one = num.substring(0, i);
-            String two = num.substring(i, num.length());
-            if (cal(one) == cal(two)) {
+            int total2 = 1;
+            for (int j=0; j < second.length(); j++) {
+                total2 *= Integer.parseInt(String.valueOf(second.charAt(j)));
+            }
+            if (total1 == total2) {
                 System.out.println("YES");
                 System.exit(0);
             }
