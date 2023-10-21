@@ -6,33 +6,34 @@ dxy = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 def possible(a, b):
     return 0 <= a < r and 0 <= b < c
 
-def dfs(x, y, cnt):
-    global ans, t
+def dfs(x, y, yam):
+    global t, ans
     if t == 0:
-        ans = max(ans, cnt)
+        ans = max(ans, yam)
         return
     for dx, dy in dxy:
         nx, ny = x + dx, y + dy
         if not possible(nx, ny):
             continue
-        if arr[nx][ny] == '#':
+        if board[nx][ny] == '#':
             continue
-        if arr[nx][ny] == 'S':
+        if board[nx][ny] == 'S':
             t -= 1
-            arr[nx][ny] = '.'
-            dfs(nx, ny, cnt + 1)
+            board[nx][ny] = '.'
+            dfs(nx, ny, yam + 1)
             t += 1
-            arr[nx][ny] = 'S'
+            board[nx][ny] = 'S'
         t -= 1
-        dfs(nx, ny, cnt)
+        dfs(nx, ny, yam)
         t += 1
 
+
 r, c, t = map(int, input().split())
-arr = [list(input().strip()) for _ in range(r)]
+board = [list(input().strip()) for _ in range(r)]
 ans = 0
 for i in range(r):
     for j in range(c):
-        if arr[i][j] == 'G':
+        if board[i][j] == 'G':
             dfs(i, j, 0)
             print(ans)
             exit()
