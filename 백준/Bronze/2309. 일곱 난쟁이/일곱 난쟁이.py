@@ -1,11 +1,12 @@
-height = sorted([int(input()) for _ in range(9)])
+import sys
+input = sys.stdin.readline
 
-for i in range(len(height)):
-    for j in range(i + 1, len(height)):
-        if sum(height) - height[i] - height[j] == 100:
-            a = height[i]
-            b = height[j]
-            
-for i in height:
-    if i != a and i != b:
-        print(i)
+height = list(int(input()) for _ in range(9))
+for i in range(9):
+    for j in range(i + 1, 9):
+        temp = height[i] + height[j]
+        if sum(height) - temp == 100:
+            height = height[:i] + height[i + 1:j] + height[j + 1:]
+            for k in sorted(height):
+                print(k)
+            exit()
