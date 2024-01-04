@@ -1,14 +1,12 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input())
-for _ in range(N):
-    num = int(input())
-    ls = []
-    for i in range(1, 1000001):
-        if num % i == 0:
-            ls.append(i)
-    if len(ls) == 1:
-        print('YES')
+n = int(input())
+for _ in range(n):
+    s = int(input())
+    for i in range(2, 1000001):
+        if s % i == 0:
+            print('NO')
+            break
     else:
-        print('NO')
+        print('YES')
