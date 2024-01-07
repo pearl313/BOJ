@@ -11,10 +11,8 @@ while True:
             ls.append(i)
     if sum(ls) - n == n:
         print(f'{n} = ', end='')
-        for i in range(len(ls) - 1):
-            if i == len(ls) - 2:
-                print(ls[i])
-            else:
-                print(f'{ls[i]} + ', end='')
+        for i in range(len(ls) - 2):
+            print(f'{ls[i]} + ', end='')
+        print(ls[-2])
     else:
         print(f'{n} is NOT perfect.')
