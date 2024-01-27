@@ -13,6 +13,6 @@ for i in range(n, 0, -1):
 ans = 0
 for i in range(1, n + 1):
     if s[i] == 'H':
-        ans += prefix[i] * (2 ** suffix[i] - suffix[i] - 1)
+        ans += prefix[i] * (pow(2, suffix[i], 1000000007) - suffix[i] - 1)
         ans %= 1000000007
 print(ans)
