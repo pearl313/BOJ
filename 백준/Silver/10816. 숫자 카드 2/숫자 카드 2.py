@@ -1,33 +1,41 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input())
-sg_ls = sorted(map(int, input().split()))
-M = int(input())
-ls = list(map(int, input().split()))
+def search(num):
+    global check
+    s, e = 0, n - 1
+    left = 0
+    while s <= e:
+        mid = (s + e) // 2
+        if ls_1[mid] == num:
+            check = True
+            left = mid
+            e = mid - 1
+        elif ls_1[mid] < num:
+            s = mid + 1
+        else:
+            e = mid - 1
 
-for i in range(M):
-    s = 0
-    e = N - 1
-    l = 0
+    s, e = 0, n - 1
+    right = 0
     while s <= e:
         mid = (s + e) // 2
-        if sg_ls[mid] < ls[i]:
+        if ls_1[mid] == num:
+            right = mid
             s = mid + 1
-        elif sg_ls[mid] >= ls[i]:
-            e = mid - 1
-            l = mid
-    s = 0
-    e = N - 1
-    r = -1
-    while s <= e:
-        mid = (s + e) // 2
-        if sg_ls[mid] <= ls[i]:
+        elif ls_1[mid] < num:
             s = mid + 1
-            r = mid
-        elif sg_ls[mid] > ls[i]:
+        else:
             e = mid - 1
-    if sg_ls[l] != ls[i] or sg_ls[r] != ls[i]:
-        print(0, end=' ')
-        continue
-    print(r - l + 1, end=' ')
+    return right - left
+
+n = int(input())
+ls_1 = sorted(map(int, input().split()))
+m = int(input())
+ls_2 = list(map(int, input().split()))
+ans = []
+for i in range(m):
+    check = False
+    temp = search(ls_2[i])
+    ans.append(temp + 1 if check else 0)
+print(*ans)
