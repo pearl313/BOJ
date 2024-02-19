@@ -1,25 +1,27 @@
 import sys
 input = sys.stdin.readline
 
+a, b = map(int, input().split())
+a = str(a)
+arr = [0 for _ in range(len(a))]
+visited = [False for _ in range(len(a))]
+
 def recur(cur):
     global ans
     if cur == len(a):
-        temp = int(''.join(selected))
-        if temp < b and len(str(temp)) == len(a):
+        temp = int(''.join(arr))
+        if temp < b:
+            if len(str(temp)) != len(arr):
+                return
             ans = max(ans, temp)
         return
     for i in range(len(a)):
-        if not visited[i]:
-            visited[i] = True
-            selected.append(a[i])
-            recur(cur + 1)
-            visited[i] = False
-            selected.pop()
-
-a, b = map(int, input().split())
-a = list(str(a))
-selected = []
-visited = [False] * len(a)
-ans = 0
+        if visited[i]:
+            continue
+        arr[cur] = a[i]
+        visited[i] = True
+        recur(cur + 1)
+        visited[i] = False
+ans = -1e10
 recur(0)
-print(ans if ans else -1)
+print(ans if ans != -1e10 else -1)
