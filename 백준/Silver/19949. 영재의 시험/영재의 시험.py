@@ -1,28 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-def choose(k):
-    global cnt
-    if k == 10:
-        for i in range(8):
-            if submit[i] == submit[i + 1] == submit[i + 2]:
-                return
-        else:
-            score = 0
-            for i in range(10):
-                if submit[i] == answer[i]:
-                    score += 1
-            if score >= 5:
-                cnt += 1
-        return
-    
-    for i in range(1, 6):
-        submit.append(i)
-        choose(k + 1)
-        submit.pop()
+ls = list(map(int, input().split()))
 
-answer = list(map(int, input().split()))
-submit = []
+def recur(cur, answer, score):
+    global cnt
+    if len(answer) >= 3:
+        for j in range(len(answer) - 2):
+            if answer[j] == answer[j + 1] == answer[j + 2]:
+                return
+    if cur == 10:
+        if score >= 5:
+            cnt += 1
+        return
+    for i in range(1, 6):
+        recur(cur + 1, answer + str(i), score + 1 if i == ls[cur] else score)
+
 cnt = 0
-choose(0)
+recur(0, '', 0)
 print(cnt)
