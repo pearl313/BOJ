@@ -1,29 +1,30 @@
 import sys
 input = sys.stdin.readline
 
-def recur(cur, cnt):
-    global ans, possible
-    if cur == N:
-        if cnt != 0:
-            ok = set()
-            for name, info in selected:
-                for i in range(M):
-                    if info[i] == 'Y':
-                        ok.add(i + 1)
-            possible = max(possible, sum(ok))
-            if possible == sum(ok):
-                ans = min(ans, len(selected))
-            return
-    else:
-        selected.append(infos[cur])
-        recur(cur + 1, cnt + 1)
-        selected.pop()
-        recur(cur + 1, cnt)
+n, m = map(int, input().split())
+ls = [list(input().split()) for _ in range(n)]
 
-N, M = map(int, input().split())
-infos = [list(input().split()) for _ in range(N)]
-selected = []
+def recur(cur, cnt, songs):
+    global ans, max_val
+    if cur == n:
+        if cnt == 0:
+            return
+        
+        play = set()
+        for i in songs:
+            for j in range(m):
+                if ls[int(i)][1][j] == 'Y':
+                    play.add(j)
+                    
+        if max_val <= len(play):
+            max_val = len(play)
+            ans = min(ans, len(songs))
+        return
+    
+    recur(cur + 1, cnt + 1, songs + str(cur))
+    recur(cur + 1, cnt, songs)
+    
 ans = 1e10
-possible = 0
-recur(0, 0)
-print(-1 if not possible else ans)
+max_val = -1e10
+recur(0, 0, '')
+print(ans if max_val else -1)
