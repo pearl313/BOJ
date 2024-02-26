@@ -1,23 +1,23 @@
 import sys
 input = sys.stdin.readline
 
-def recur(cur, start):
-    global ans
-    if cur == k:
-        temp = 0
-        for a in range(k):
-            for b in range(a + 1, k):
-                temp += taste[selected[a]][selected[b]]
-        ans = max(ans, temp)
-        return
-    for i in range(start, n):
-        selected.append(i)
-        recur(cur + 1, i + 1)
-        selected.pop()
-
 n, k = map(int, input().split())
-taste = [list(map(int, input().split())) for _ in range(n)]
-selected = []
+ls = [list(map(int, input().split())) for _ in range(n)]
+
+def recur(cur, choose):
+    global ans
+    if cur == n:
+        if len(choose) == k:
+            temp = 0
+            for i in range(k):
+                for j in range(i + 1, k):
+                    temp += ls[int(choose[i])][int(choose[j])]
+            ans = max(ans, temp)
+        return
+
+    recur(cur + 1, choose + str(cur))
+    recur(cur + 1, choose)
+
 ans = -1e10
-recur(0, 0)
+recur(0, '')
 print(ans)
