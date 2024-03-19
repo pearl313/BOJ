@@ -1,17 +1,16 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(2000000)
-def recur(k): # 현재 k일이고, 앞으로 최선을 다해서 일을 했을 때, 얻을 수 있는 이득
-    if k > n:
-        return -213123212
-    if k == n:
-        return 0
-    if dp[k] != -1:
-        return dp[k]
-    dp[k] = max(recur(k + ls[k][0]) + ls[k][1], recur(k + 1))
-    return dp[k]
 
 n = int(input())
 ls = [list(map(int, input().split())) for _ in range(n)]
-dp = [-1] * (n + 1)
-print(recur(0))
+
+# 바텀 업과 다르게 순서를 바꿔서 뒤에서부터 확인하면서 dp 배열 채워나가기
+dp = [0] * (n + 1)
+
+for i in range(n)[::-1]:
+    if i + ls[i][0] < n + 1:
+        dp[i] = max(dp[i + ls[i][0]] + ls[i][1], dp[i + 1])
+    else:
+        dp[i] = dp[i + 1]
+
+print(dp[0])
