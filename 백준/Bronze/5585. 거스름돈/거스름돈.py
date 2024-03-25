@@ -1,12 +1,14 @@
 import sys
 input = sys.stdin.readline
 
-money = int(input())
-rest = 1000 - money
-cnt = 0
-coin = [500, 100, 50, 10, 5, 1]
-for i in coin:
-    if rest >= i:
-        cnt += rest // i
-        rest %= i
-print(cnt)
+pay = int(input())
+
+change = 1000 - pay
+money = [500, 100, 50, 10, 5, 1]
+total = 0
+
+for i in range(6):
+    total += change // money[i]
+    change -= (change // money[i]) * money[i]
+    
+print(total)
