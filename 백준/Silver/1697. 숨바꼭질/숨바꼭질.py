@@ -1,21 +1,25 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
+from collections import deque
 
-def BFS(v):
-    graph[v] = 0
+n, k = map(int, input().split())
+
+def bfs(x):
+    visited = [-1] * 100001
+    visited[x] = 0
     q = deque()
-    q.append(v)
+    q.append(x)
+
     while q:
         cur = q.popleft()
-        if cur == K:
-            print(graph[cur])
-            break
-        for nx in (cur + 1, cur - 1, cur * 2):
-            if 0 <= nx <= 100000 and  graph[nx] == -1:
-                graph[nx] = graph[cur] + 1
-                q.append(nx)
+        if cur == k:
+            return visited[k]
+        for nx in (cur - 1, cur + 1, 2 * cur):
+            if nx < 0 or nx > 100000:
+                continue
+            if visited[nx] != -1:
+                continue
+            visited[nx] = visited[cur] + 1
+            q.append(nx)
 
-N, K = map(int, input().split())
-graph = [-1] * 100001
-BFS(N)
+print(bfs(n))
