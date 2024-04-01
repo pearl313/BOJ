@@ -1,37 +1,32 @@
 import sys, heapq
 input = sys.stdin.readline
 
-INF = 1e10
-
-def dijkstra(s):
-    q = []
-    dist = [INF] * (V + 1)
-    heapq.heappush(q, (0, s))
-    dist[s] = 0
-
-    while q:
-        dist_x, x = heapq.heappop(q)
-
-        if dist_x != dist[x]:
-            continue
-
-        for node, cost in graph[x]:
-            if dist[node] > dist[x] + cost:
-                dist[node] = dist[x] + cost
-                heapq.heappush(q, (dist[node], node))
-
-    for i in dist[1:]:
-        if i == INF:
-            print("INF")
-        else:
-            print(i)
-
 V, E = map(int, input().split())
-start = int(input())
-
 graph = [[] for _ in range(V + 1)]
+
+k = int(input())
 for _ in range(E):
     u, v, w = map(int, input().split())
     graph[u].append((v, w))
 
-dijkstra(start)
+dist = [1 << 30] * (V + 1)
+dist[k] = 0
+
+pq = []
+heapq.heappush(pq, [0, k])
+
+while pq:
+    mn, cur = heapq.heappop(pq)
+
+    if dist[cur] != mn:
+        continue
+
+    for j in range(len(graph[cur])):
+        nxt = graph[cur][j][0]
+        nd = dist[cur] + graph[cur][j][1]
+        if dist[nxt] > nd:
+            dist[nxt] = nd
+            heapq.heappush(pq, [nd, nxt])
+
+for i in range(1, V + 1):
+    print(dist[i] if dist[i] != 1 << 30 else 'INF')
