@@ -2,28 +2,31 @@ import sys
 input = sys.stdin.readline
 from collections import deque
 
-def bfs(v):
-    visited[v] += 1
+n, m = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+def bfs(x):
+    visited = [-1] * (n + 1)
+    visited[x] = 0
     q = deque()
-    q.append(v)
+    q.append(x)
+
     while q:
-        current = q.popleft()
-        for i in relationship[current]:
+        cur = q.popleft()
+        for i in graph[cur]:
             if visited[i] != -1:
                 continue
+            visited[i] = visited[cur] + 1
             q.append(i)
-            visited[i] = visited[current] + 1
 
-N, M = map(int, input().split())
-relationship = [[] for _ in range(N + 1)]
-for _ in range(M):
-    a, b = map(int, input().split())
-    relationship[a].append(b)
-    relationship[b].append(a)
-cnt = [0] * (N + 1)
-for i in range(1, N + 1):
-    step = 0
-    visited = [-1] * (N + 1)
-    bfs(i)
-    cnt[i] = sum(visited[1:])
-print(cnt.index(min(cnt[1:])))
+    return sum(visited[1:])
+
+ans = [1e10]
+for i in range(1, n + 1):
+    ans.append(bfs(i))
+print(ans.index(min(ans)))
